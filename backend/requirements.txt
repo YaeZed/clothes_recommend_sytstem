@@ -1,0 +1,26 @@
+flask==3.0.3
+flask-cors==4.0.1
+flask-jwt-extended==4.6.0
+flask-sqlalchemy==3.1.1
+pymysql==1.1.1
+sqlalchemy==2.0.36
+
+# 数据处理
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.5.2
+scipy==1.14.1
+
+# 推荐算法
+scikit-surprise==1.1.4
+
+# 深度学习
+torch==2.4.1
+torchvision==0.19.1
+
+# 文本处理
+jieba==0.42.1
+
+# 工具
+python-dotenv==1.0.1
+werkzeug==3.0.6

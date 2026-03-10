@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* ────────────── CSS Variables (Taobao Style) ────────────── */
+:root {
+  --primary: #ff5000; /* Taobao orange */
+  --primary-light: #ff7333;
+  --primary-bg: #fff0e8;
+  --secondary: #ff0036; /* Tmall red */
+  --accent: #ffd700;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --bg-page: #f4f4f4;
+  --bg-card: #ffffff;
+  --border: #eeeeee;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --transition: 0.2s ease;
+  --header-h: 120px; /* Bigger header for Taobao style */
+}
+
+/* ────────────── Reset ────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  color: var(--primary);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+/* ────────────── Scrollbar ────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
+}
+
+/* ────────────── Utility ────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gap-8 {
+  gap: 8px;
+}
+.gap-12 {
+  gap: 12px;
+}
+.gap-16 {
+  gap: 16px;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.fw-600 {
+  font-weight: 600;
+}
+.fw-700 {
+  font-weight: 700;
+}
+
+/* ────────────── Section Heading ────────────── */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-head h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-head h2::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+/* ────────────── Override Element Plus ────────────── */
+.el-button--primary {
+  --el-button-bg-color: var(--primary) !important;
+  --el-button-border-color: var(--primary) !important;
+  --el-button-hover-bg-color: var(--primary-light) !important;
+  --el-button-hover-border-color: var(--primary-light) !important;
+}
+.el-tag--danger {
+  --el-tag-bg-color: var(--primary-bg) !important;
+  --el-tag-text-color: var(--primary) !important;
+  --el-tag-border-color: transparent !important;
+}
+.el-input__wrapper:focus-within {
+  box-shadow: 0 0 0 1px var(--primary) inset !important;
+}
