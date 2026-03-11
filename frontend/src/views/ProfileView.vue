@@ -27,8 +27,8 @@
             style="margin-left: 8px"
             >管理员</el-tag
           >
-          <el-tag v-else type="success" size="small" style="margin-left: 8px"
-            >普通会员</el-tag
+          <el-tag v-else type="danger" size="small" style="margin-left: 8px"
+            >钻石会员</el-tag
           >
         </div>
         <div class="banner-stats">

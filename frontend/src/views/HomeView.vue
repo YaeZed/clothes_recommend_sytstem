@@ -65,7 +65,7 @@
         </div>
         <div class="user-info not-logged" v-else>
           <el-avatar :size="50" icon="UserFilled" />
-          <div class="greeting">Hi! 欢迎来到淘宝</div>
+          <div class="greeting">Hi! 欢迎来到穿搭推荐</div>
           <div class="auth-btns">
             <el-button
               type="primary"
@@ -134,7 +134,7 @@
     <!-- 冷启动：风格测试弹窗 -->
     <el-dialog
       v-model="showStyleTest"
-      title="✨ 欢迎来到淘宝！选择偏好开启个性推荐"
+      title="✨ 欢迎来到穿搭推荐！选择偏好开启个性推荐"
       width="600px"
       :close-on-click-modal="false"
       :show-close="false"

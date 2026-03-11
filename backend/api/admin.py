@@ -1,6 +1,9 @@
-from flask import Blueprint, request, jsonify
+import json
+import os
+from datetime import datetime, timedelta
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from sqlalchemy import func
+from sqlalchemy import func, cast, Date
 from backend.extensions import db
 from backend.models.user import User
 from backend.models.product import Product
@@ -112,11 +115,50 @@ def admin_stats():
     user_count    = User.query.filter_by(role="user").count()
     product_count = Product.query.filter_by(is_on_sale=True).count()
 
+    # 1. 品类分布统计
+    category_stats = (
+        db.session.query(Product.category, func.count(Product.id))
+        .filter(Product.is_on_sale == True)
+        .group_by(Product.category)
+        .all()
+    )
+
+    # 2. 近7日行为趋势
+    seven_days_ago = datetime.utcnow() - timedelta(days=7)
+    trend_raw = (
+        db.session.query(
+            cast(UserBehavior.created_at, Date).label('date'),
+            UserBehavior.action_type,
+            func.count(UserBehavior.id)
+        )
+        .filter(UserBehavior.created_at >= seven_days_ago)
+        .group_by('date', UserBehavior.action_type)
+        .all()
+    )
+    
+    # 格式化趋势数据: { "2023-01-01": { "view": 10, "cart": 2 }, ... }
+    behavior_trend = {}
+    for date, action, count in trend_raw:
+        d_str = date.strftime('%m-%d')
+        if d_str not in behavior_trend:
+            behavior_trend[d_str] = {}
+        behavior_trend[d_str][action] = count
+
+    # 3. 算法评估指标 (从 JSON 加载)
+    algo_metrics = {}
+    metrics_path = os.path.join(current_app.root_path, 'data', 'algo_metrics.json')
+    if os.path.exists(metrics_path):
+        with open(metrics_path, 'r', encoding='utf-8') as f:
+            algo_metrics = json.load(f)
+
     return jsonify({
         "code": 200,
         "data": {
             "userCount":    user_count,
             "productCount": product_count,
             "behaviorStats": {row[0]: row[1] for row in behavior_stats},
+            "categoryStats": {row[0] or "未分类": row[1] for row in category_stats},
+            "behaviorTrend": behavior_trend,
+            "algoMetrics":   algo_metrics
         }
     })
