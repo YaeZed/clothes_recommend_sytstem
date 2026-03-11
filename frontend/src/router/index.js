@@ -28,6 +28,18 @@ const routes = [
         component: () => import("../views/ProfileView.vue"),
         meta: { requiresAuth: true },
       },
+      {
+        path: "checkout",
+        name: "Checkout",
+        component: () => import("../views/CheckoutView.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "orders",
+        name: "OrderList",
+        component: () => import("../views/OrderListView.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {

@@ -136,14 +136,7 @@
             >
           </div>
 
-          <div
-            style="
-              margin-top: 32px;
-              display: flex;
-              justify-content: center;
-              gap: 16px;
-            "
-          >
+          <div class="form-actions">
             <el-button
               type="primary"
               class="save-btn"
@@ -152,7 +145,9 @@
             >
               保存修改
             </el-button>
-            <el-button @click="pwDialog.visible = true">修改密码</el-button>
+            <el-button class="pw-btn" @click="pwDialog.visible = true"
+              >修改密码</el-button
+            >
           </div>
         </div>
       </el-tab-pane>
@@ -285,6 +280,10 @@
               </div>
               <div class="order-foot">
                 <span class="o-time">{{ fmtTime(order.createdAt) }}</span>
+                <div class="o-addr" v-if="order.receiver">
+                  <el-icon><Location /></el-icon>
+                  {{ order.receiver.name }} {{ order.receiver.phone }} | {{ order.receiver.address }}
+                </div>
                 <span class="o-total"
                   >实付款:
                   <strong
@@ -862,6 +861,21 @@ onMounted(async () => {
   font-size: 13px;
   color: #666;
 }
+.o-addr {
+  flex: 1;
+  margin: 0 20px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.o-addr .el-icon {
+  font-size: 14px;
+  color: #999;
+}
 .o-total strong {
   font-size: 18px;
   color: var(--primary);
@@ -958,12 +972,22 @@ onMounted(async () => {
   display: flex;
   gap: 32px;
 }
+.form-actions {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 .save-btn {
-  margin-top: 20px;
   background: var(--primary) !important;
   border-color: var(--primary) !important;
   font-weight: 600 !important;
-  padding: 0 32px !important;
+  padding: 0 40px !important;
+  height: 40px !important;
+}
+.pw-btn {
+  height: 40px !important;
 }
 
 /* 历史 tab */

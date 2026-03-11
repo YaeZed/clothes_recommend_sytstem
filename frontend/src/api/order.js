@@ -1,13 +1,13 @@
 import request from "./request";
 
 export function createOrder(data) {
-  return request.post("/api/orders", data);
+  return request.post("/orders", data);
 }
 
 export function getOrders() {
-  return request.get("/api/orders");
+  return request.get("/orders");
 }
 
 export function payOrder(id) {
-  return request.post(`/api/orders/${id}/pay`);
+  return request.post(`/orders/${id}/pay`);
 }

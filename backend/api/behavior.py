@@ -208,12 +208,10 @@ def user_portrait():
             Product.category,
             func.sum(
                 case(
-                    [
-                        (UserBehavior.action_type == "view",     0.2),
-                        (UserBehavior.action_type == "collect",  0.4),
-                        (UserBehavior.action_type == "cart",     0.6),
-                        (UserBehavior.action_type == "purchase", 1.0)
-                    ],
+                    (UserBehavior.action_type == "view",     0.2),
+                    (UserBehavior.action_type == "collect",  0.4),
+                    (UserBehavior.action_type == "cart",     0.6),
+                    (UserBehavior.action_type == "purchase", 1.0),
                     else_=0
                 )
             ).label("score")
@@ -223,12 +221,10 @@ def user_portrait():
         .group_by(Product.category)
         .order_by(func.sum(
             case(
-                [
-                    (UserBehavior.action_type == "view",     0.2),
-                    (UserBehavior.action_type == "collect",  0.4),
-                    (UserBehavior.action_type == "cart",     0.6),
-                    (UserBehavior.action_type == "purchase", 1.0)
-                ],
+                (UserBehavior.action_type == "view",     0.2),
+                (UserBehavior.action_type == "collect",  0.4),
+                (UserBehavior.action_type == "cart",     0.6),
+                (UserBehavior.action_type == "purchase", 1.0),
                 else_=0
             )
         ).desc())

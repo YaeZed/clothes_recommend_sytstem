@@ -264,12 +264,16 @@ async function buyNow() {
     router.push("/auth/login");
     return;
   }
-  await recordBehavior({
+  // 先加入购物车，确保结算页有数据
+  await cart.addItem(product.value, 1, selectedColor.value, selectedSize.value);
+  // 记录行为
+  recordBehavior({
     productId: product.value.id,
-    actionType: "purchase",
+    actionType: "cart",
     duration: 0,
-  });
-  ElMessage({ message: "购买成功！", type: "success", duration: 1500 });
+  }).catch(() => {});
+  // 跳转到结算页
+  router.push("/checkout");
 }
 
 onMounted(() => load(route.params.id));

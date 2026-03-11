@@ -130,52 +130,8 @@ function goDetail(id) {
 }
 
 async function checkout() {
-  checkingOut.value = true;
-  try {
-    // 弹出确认框
-    await ElMessageBox.confirm(
-      `共 ${cart.totalCount} 件商品，合计 ¥${cart.totalPrice.toFixed(2)}，确认结算？`,
-      "确认订单",
-      {
-        confirmButtonText: "去支付",
-        cancelButtonText: "再逛逛",
-        type: "warning",
-      },
-    );
-
-    // 1. 生成订单
-    const orderRes = await createOrder({
-      receiver: {
-        name: auth.user?.username || "收件人",
-        phone: "13800138000",
-        address: "测试收货地址（可在个人中心修改）",
-      },
-    });
-
-    const orderId = orderRes.data.data.id;
-
-    // 2. 模拟支付
-    await payOrder(orderId);
-
-    // 3. 清空购物车
-    await cart.load(); // 或调用 cart.clearAll() 获取最新空状态，由于我们后端已经删除了对应的 cart_items，重新 loaded 即可
-
-    ElMessage({
-      message: "🎉 支付成功！已为您生成专属推荐",
-      type: "success",
-      duration: 3000,
-    });
-
-    emit("close");
-    // 如果已经在个人中心，可以考虑刷新，否则跳到个人中心的订单列表，为了简化我们去 profile
-    router.push("/profile?tab=orders");
-  } catch (error) {
-    if (error !== "cancel") {
-      ElMessage.error(error.response?.data?.msg || "结算失败");
-    }
-  } finally {
-    checkingOut.value = false;
-  }
+  emit("close");
+  router.push("/checkout");
 }
 </script>
 
